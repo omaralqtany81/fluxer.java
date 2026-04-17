@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.github.omaralqtany81.fluxer.java</groupId>
             <artifactId>fluxer-java</artifactId>
-            <version>95dcaee</version>
+            <version>120b60d0d8</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
