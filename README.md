@@ -1,52 +1,84 @@
-# Fluxer Java Framework (fluxer.java)
+# fluxer.java 📡
 
-A high-performance, asynchronous wrapper for the Fluxer platform API, implemented in Java 17+. This library is designed for low-latency interactions and high scalability, providing a robust foundation for building complex automated systems.
+[![Maven Central](https://img.shields.io/badge/maven--central-v1.0.0-blue.svg)](https://search.maven.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Java Support](https://img.shields.io/badge/java-17%2B-orange.svg)](https://www.oracle.com/java/)
 
-## Key Design Principles
+**fluxer.java** is an enterprise-grade, high-performance asynchronous Java library built for the [Fluxer](https://fluxer.app) platform. Designed for scalability, speed, and developer experience.
 
-- **Non-blocking Execution**: Every REST interaction utilizes `CompletableFuture` to ensure the gateway thread remains responsive under heavy load.
-- **Event-Driven Architecture**: A decoupled event system allows developers to subscribe to state changes without interfering with core library operations.
-- **Object-Relational Mapping (ORM) Style**: Fluxer entities (Guilds, Users, Messages) are mapped to deeply integrated Java objects, enabling a fluent developer experience.
-- **Auto-Scale Gateway**: Built-in heartbeat management and session recovery mechanisms ensure maximum uptime.
+---
 
-## Implementation Example
+## 🚀 Key Features
+
+| Feature | Description |
+| :--- | :--- |
+| **Reactive Gateway** | High-speed WebSocket implementation with automatic healing and heartbeating. |
+| **Interactivity Engine** | Non-blocking event awaiting framework for complex user flows. |
+| **Smart Caching** | Local entity persistence minimizing API overhead and latency. |
+| **Graphic Engine** | Native Graphics2D support for dynamic image generation (Rank Cards, etc.). |
+| **Plugin System** | Modular architecture allowing hot-swappable JAR extensions. |
+| **Deep Moderation** | Comprehensive toolkit for server administration and automated safety. |
+| **Shard Manager** | Multi-shard orchestration for large-scale bot deployments. |
+
+---
+
+## 📦 Installation
+
+### Maven
+```xml
+<dependency>
+    <groupId>com.fluxer</groupId>
+    <artifactId>fluxer-java</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+---
+
+## 💻 Quick Start
 
 ```java
-public class SystemEntry {
+import com.fluxer.java.FluxerBuilder;
+import com.fluxer.java.FluxerClient;
+import com.fluxer.java.events.Subscribe;
+import com.fluxer.java.entities.Message;
+
+public class Main {
     public static void main(String[] args) {
-        // Initialize client with custom persistence configurations
-        FluxerClient client = FluxerBuilder.createDefault("AUTH_TOKEN")
-            .setPrefix(".")
-            .build();
+        FluxerClient client = new FluxerBuilder("TOKEN")
+                .setPrefix("!")
+                .build();
 
-        // Register dynamic command observers
-        client.getCommandHandler().register("status", ctx -> {
-            ctx.reply("System operational. Connectivity: Stable.");
-        });
-
-        // Initialize Leveling Logic
-        client.getLevelingManager().addRoleReward(5, "ROLE_ID_LEVEL_5");
-
+        client.registerListener(new Main());
         client.login();
+    }
+
+    @Subscribe
+    public void onMessage(Message msg) {
+        if (msg.getContent().equals("!ping")) {
+            msg.reply("Pong! 🏓");
+        }
     }
 }
 ```
 
-## Core Modules
+---
 
-### 🔗 Gateway Engine
-The gateway module handles the WebSocket handshake and binary-to-JSON serialization. It includes automated heartbeat intervals and jitter-resistant reconnection logic.
+## 🏗️ Architecture
 
-### 🛠️ REST Requester 
-A centralized request manager that coordinates all outgoing HTTP calls, ensuring authentication headers and rate-limit headers are processed uniformly.
-
-### 🏆 Leveling and Rank Progression
-The framework includes a modular leveling engine that tracks engagement metrics and automatically handles role assignment through its integrated reward system.
+The library follows a modular design pattern:
+- `com.fluxer.java.core`: Core client and gateway logic.
+- `com.fluxer.java.entities`: Rich POJO representations of Fluxer objects.
+- `com.fluxer.java.graphics`: Image processing and generation suite.
+- `com.fluxer.java.plugins`: Interface for third-party extensions.
 
 ---
 
-## Technical Documentation
-For detailed information on Javadoc and advanced configurations, please refer to the project's Wiki or source headers.
+## 📄 License
+Distributed under the **MIT License**. See `LICENSE` for more information.
 
-## License
-Project codebase is released under the MIT License.
+---
+
+<p align="center">
+  Built with ❤️ for the Fluxer Community.
+</p>

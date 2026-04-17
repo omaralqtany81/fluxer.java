@@ -3,23 +3,13 @@ package com.fluxer.java;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Every great bot starts with a great builder. 
- * FluxerBuilder provides a fluent way to configure and instantiate your library instance.
- */
 public class FluxerBuilder {
     private String token;
     private String prefix = "!";
     private final List<Object> listeners = new ArrayList<>();
 
-    public static FluxerBuilder create(String token) {
-        FluxerBuilder builder = new FluxerBuilder();
-        builder.token = token;
-        return builder;
-    }
-
-    public static FluxerBuilder createDefault(String token) {
-        return create(token);
+    public FluxerBuilder(String token) {
+        this.token = token;
     }
 
     public FluxerBuilder setPrefix(String prefix) {

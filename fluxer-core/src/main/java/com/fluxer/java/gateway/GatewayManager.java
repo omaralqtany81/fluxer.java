@@ -4,13 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fluxer.java.FluxerClient;
 import com.fluxer.java.entities.Message;
-import com.fluxer.java.events.EventListener;
 import com.fluxer.java.utils.EntityParser;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -56,11 +54,9 @@ public class GatewayManager extends WebSocketListener {
 
     private void handlePayload(int op, String event, JsonNode data) {
         switch (op) {
-            case 0: // Dispatch
+            case 0:
                 if ("MESSAGE_CREATE".equals(event)) {
                     Message msg = EntityParser.parseMessage(data, client);
-                    
-                    // Trigger the dynamic framework features
                     client.getCommandHandler().handle(msg);
                     client.getLevelingManager().processMessage(msg);
                     client.getEventBus().post(msg, client.getListeners());
@@ -69,11 +65,11 @@ public class GatewayManager extends WebSocketListener {
                     client.getEventBus().post(new com.fluxer.java.events.ReadyEvent(), client.getListeners());
                 }
                 break;
-            case 10: // Hello
+            case 10:
                 long heartbeatInterval = data.get("heartbeat_interval").asLong();
                 startHeartbeat(heartbeatInterval);
                 break;
-            case 11: // Heartbeat ACK
+            case 11:
                 logger.debug("Heartbeat ACK received.");
                 break;
         }
@@ -116,7 +112,7 @@ public class GatewayManager extends WebSocketListener {
     public void onClosing(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
         logger.warn("Gateway connection closing: {} ({})", reason, code);
         this.connected = false;
-        if (code != 1000) { // If not a normal closure, let's try to get back online
+        if (code != 1000) {
             reconnect();
         }
     }

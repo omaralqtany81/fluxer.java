@@ -4,14 +4,9 @@ import com.fluxer.java.FluxerClient;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Coordinates all outbound HTTP communication with the Fluxer REST API.
- * Uses an asynchronous execution model to prevent blocking the main event loop.
- */
 public class RestManager {
     private static final Logger logger = LoggerFactory.getLogger(RestManager.class);
     private static final String API_BASE_URL = "https://api.fluxer.app/v1";
@@ -27,7 +22,6 @@ public class RestManager {
 
     public CompletableFuture<Response> post(String endpoint, String json) {
         CompletableFuture<Response> future = new CompletableFuture<>();
-        
         RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
                 .url(API_BASE_URL + endpoint)
@@ -47,13 +41,11 @@ public class RestManager {
                 future.complete(response);
             }
         });
-
         return future;
     }
 
     public CompletableFuture<Response> get(String endpoint) {
         CompletableFuture<Response> future = new CompletableFuture<>();
-
         Request request = new Request.Builder()
                 .url(API_BASE_URL + endpoint)
                 .header("Authorization", "Bot " + client.getToken())
@@ -72,7 +64,6 @@ public class RestManager {
                 future.complete(response);
             }
         });
-
         return future;
     }
 }

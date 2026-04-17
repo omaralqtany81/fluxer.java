@@ -61,6 +61,10 @@ public class FluxerClient {
         gatewayManager.connect();
     }
 
+    public void registerListener(Object listener) {
+        this.listeners.add(listener);
+    }
+
     public String getToken() {
         return token;
     }
