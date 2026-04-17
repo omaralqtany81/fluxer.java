@@ -8,10 +8,13 @@ import com.fluxer.java.events.Subscribe;
 public class QuickStart {
     public static void main(String[] args) {
         String token = System.getenv("FLUXER_TOKEN");
-        if (token == null || token.isEmpty()) token = System.getenv("TOKEN");
-        if (token == null || token.isEmpty()) token = System.getenv("token");
-        if (token == null || token.isEmpty()) token = System.getenv("DISCORD_TOKEN");
-        
+        if (token == null || token.isEmpty())
+            token = System.getenv("TOKEN");
+        if (token == null || token.isEmpty())
+            token = System.getenv("token");
+        if (token == null || token.isEmpty())
+            token = System.getenv("DISCORD_TOKEN");
+
         if (token == null || token.isEmpty()) {
             token = "YOUR_TOKEN_HERE"; // Fallback for local development
             System.out.println("Warning: Token environment variable not set.");
