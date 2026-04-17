@@ -80,7 +80,12 @@ public class GatewayManager extends WebSocketListener {
             String identifyPayload = objectMapper.createObjectNode()
                     .put("op", 2)
                     .set("d", objectMapper.createObjectNode()
-                            .put("token", client.getToken()))
+                            .put("token", client.getToken())
+                            .put("intents", 32767)
+                            .set("properties", objectMapper.createObjectNode()
+                                    .put("os", System.getProperty("os.name"))
+                                    .put("browser", "fluxer.java")
+                                    .put("device", "fluxer.java")))
                     .toString();
             webSocket.send(identifyPayload);
         } catch (Exception e) {
