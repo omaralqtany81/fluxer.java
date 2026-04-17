@@ -8,6 +8,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Coordinates all outbound HTTP communication with the Fluxer REST API.
+ * Uses an asynchronous execution model to prevent blocking the main event loop.
+ */
 public class RestManager {
     private static final Logger logger = LoggerFactory.getLogger(RestManager.class);
     private static final String API_BASE_URL = "https://api.fluxer.app/v1";

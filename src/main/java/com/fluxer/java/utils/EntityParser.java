@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fluxer.java.entities.Message;
 import com.fluxer.java.entities.User;
 
+/**
+ * Internal utility to transform raw JSON signals from the gateway into 
+ * strongly-typed library entities.
+ */
 public class EntityParser {
     
     public static User parseUser(JsonNode data) {
