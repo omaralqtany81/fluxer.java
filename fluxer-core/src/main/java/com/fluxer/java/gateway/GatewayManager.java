@@ -63,6 +63,11 @@ public class GatewayManager extends WebSocketListener {
                 } else if ("READY".equals(event)) {
                     logger.info("Bot is ready!");
                     client.getEventBus().post(new com.fluxer.java.events.ReadyEvent(), client.getListeners());
+                } else if ("INTERACTION_CREATE".equals(event)) {
+                    com.fluxer.java.entities.interactions.Interaction interaction = EntityParser.parseInteraction(data, client);
+                    if (interaction != null) {
+                        client.getEventBus().post(interaction, client.getListeners());
+                    }
                 }
                 break;
             case 10:
