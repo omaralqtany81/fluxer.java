@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class GatewayManager extends WebSocketListener {
     private static final Logger logger = LoggerFactory.getLogger(GatewayManager.class);
-    private static final String GATEWAY_URL = "wss://gateway.fluxer.app";
+    private static final String GATEWAY_URL = "wss://gateway.fluxer.app/?v=1";
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private final FluxerClient client;
@@ -81,6 +81,7 @@ public class GatewayManager extends WebSocketListener {
                     .put("op", 2)
                     .set("d", objectMapper.createObjectNode()
                             .put("token", client.getToken())
+                            .put("intents", 32767)
                             .set("properties", objectMapper.createObjectNode()
                                     .put("os", System.getProperty("os.name"))
                                     .put("browser", "fluxer.java")
