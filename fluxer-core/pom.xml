@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>fluxer-java</artifactId>
+    <artifactId>fluxercore</artifactId>
 
     <dependencies>
         <dependency>
