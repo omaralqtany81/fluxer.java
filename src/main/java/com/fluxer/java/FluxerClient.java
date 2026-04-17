@@ -18,13 +18,17 @@ public class FluxerClient {
     private final String token;
     private final GatewayManager gatewayManager;
     private final RestManager restManager;
+    private final CommandHandler commandHandler;
+    private final LevelingManager levelingManager;
     private final List<Object> listeners;
 
-    FluxerClient(String token, List<Object> listeners) {
+    FluxerClient(String token, List<Object> listeners, String prefix) {
         this.token = token;
         this.listeners = listeners;
         this.restManager = new RestManager(this);
         this.gatewayManager = new GatewayManager(this);
+        this.commandHandler = new CommandHandler(prefix != null ? prefix : "!");
+        this.levelingManager = new LevelingManager();
     }
 
     public void login() {
@@ -42,5 +46,13 @@ public class FluxerClient {
 
     public RestManager getRestManager() {
         return restManager;
+    }
+
+    public CommandHandler getCommandHandler() {
+        return commandHandler;
+    }
+
+    public LevelingManager getLevelingManager() {
+        return levelingManager;
     }
 }

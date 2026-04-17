@@ -63,6 +63,11 @@ public class GatewayManager extends WebSocketListener {
             case 0: // Dispatch
                 if ("MESSAGE_CREATE".equals(event)) {
                     Message msg = EntityParser.parseMessage(data, client);
+                    
+                    // Trigger the dynamic framework features
+                    client.getCommandHandler().handle(msg);
+                    client.getLevelingManager().processMessage(msg);
+
                     for (Object listener : client.getListeners()) {
                         if (listener instanceof EventListener) {
                             ((EventListener) listener).onMessageReceived(msg);
