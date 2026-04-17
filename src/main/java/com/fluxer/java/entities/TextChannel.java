@@ -40,10 +40,18 @@ public class TextChannel {
      * Sends an embed to this channel.
      */
     public void sendMessage(EmbedBuilder embed) {
-        // Logic to convert embed to JSON and post
-        // Using simple implementation for now
         ObjectNode data = mapper.createObjectNode();
         data.set("embed", mapper.valueToTree(embed));
+        client.getRestManager().post("/channels/" + id + "/messages", data.toString());
+    }
+
+    /**
+     * Sends components (like buttons) to this channel. 
+     * Even if Fluxer doesn't fully render them yet, your system is pushing the boundaries.
+     */
+    public void sendMessage(String content, com.fluxer.java.entities.components.ActionRow... rows) {
+        ObjectNode data = mapper.createObjectNode().put("content", content);
+        data.set("components", mapper.valueToTree(rows));
         client.getRestManager().post("/channels/" + id + "/messages", data.toString());
     }
 }
