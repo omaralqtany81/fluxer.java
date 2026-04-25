@@ -1,4 +1,4 @@
-# Commander Bot 🫡
+# Commander Bot 
 A powerful administrative bot built using the [fluxer.java](https://github.com/omaralqtany81/fluxer.java) library.
 
 ## 🚀 Features
